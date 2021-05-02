@@ -1,7 +1,4 @@
-import {
-  WEATHER_INFO_SUCCESS,
-  WEATHER_INFO_FAIL,
-} from "../actions/types";
+import { WEATHER_INFO_SUCCESS, WEATHER_INFO_FAIL } from "../actions/types";
 
 const initialState = {
   loading: true,

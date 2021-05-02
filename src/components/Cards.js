@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
+// import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
@@ -23,7 +23,8 @@ const useStyles = makeStyles({
   },
 });
 
-const Cards = () => {
+const Cards = ({ info }) => {
+  console.log(info);
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -35,23 +36,24 @@ const Cards = () => {
           color='textSecondary'
           gutterBottom
         >
-          Word of the Day
+          {info.dt_txt}
         </Typography>
         <Typography variant='h5' component='h2'>
-          be{bull}nev{bull}o{bull}lent
+          {/* be{bull}nev{bull}o{bull}lent */}
+          Temp: {info.main.temp}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
-          adjective
+          Weather: {info.weather[0].main}
         </Typography>
-        <Typography variant='body2' component='p'>
-          well meaning and kindly.
+        <Typography variant='body2' component='p' variant='h6'>
+          Weather Description: {info.weather[0].description}
           <br />
-          {'"a benevolent smile"'}
+          {/* {'"a benevolent smile"'} */}
         </Typography>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button size='small'>Learn More</Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };
