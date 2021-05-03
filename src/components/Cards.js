@@ -40,7 +40,7 @@ const Cards = ({ info }) => {
         <Typography className={classes.pos} color='textSecondary'>
           Weather: {info.weather[0].main}
         </Typography>
-        <Typography variant='body2' component='p' variant='p'>
+        <Typography variant='body2' component='p'>
           Weather Description: {info.weather[0].description}
           <br />
         </Typography>

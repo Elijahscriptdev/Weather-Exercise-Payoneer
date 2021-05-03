@@ -41,27 +41,21 @@ const WeatherInfo = () => {
     setPageNumber(selected);
   };
 
-  const [selectedValueCelsuis, setSelectedValueCelsuis] = useState(false);
-  const [selectedValueFahrenheit, setSelectedValueFahrenheit] = useState(false);
+  // const [temp, setSTemp] = useState();
 
   const handleChange = (event) => {
-    // selectedValueCelsuis(event.target.checked);
-    // if (radioValue === 'celsius'){
-    //   stateProperty = 'celsiusChecked'
-    // } else if (radioValue === 'fahrenheit'){
-    //   stateProperty = 'fahrenheitChecked'
-    // }
+    if (event.target.value === "celsius") {
+      // setSTemp((C * 9/5) + 32)
+      console.log(event.target.value);
+    } else if (event.target.value === "fahrenheit") {
+      console.log(event.target.value);
+    }
   };
 
   return (
     <div>
       <h1>WeatherInfo</h1>
-      <ToggleTempForm
-        selectedValueCelsuis={selectedValueCelsuis}
-        selectedValueFahrenheit={selectedValueFahrenheit}
-        handleChange={handleChange}
-      />
-      {/* <h1>checkbox is: {selectedValueCelsuis ? "True" : "false"}</h1> */}
+      <ToggleTempForm handleChange={handleChange} />
       <ReactPaginate
         previousLabel={<ImArrowLeft />}
         nextLabel={<ImArrowRight />}

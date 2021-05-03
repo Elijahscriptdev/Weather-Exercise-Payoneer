@@ -3,15 +3,8 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 
-const ToggleTempForm = ({selectedValueCelsuis,  selectedValueFahrenheit, handleChange}) => {
-//   const [selectedValue, setSelectedValue] = useState(false);
-
-//   const handleChange = (event) => {
-//     setSelectedValue(event.target.value);
-//   };
-
+const ToggleTempForm = ({ handleChange }) => {
   return (
     <FormControl component='fieldset'>
       <RadioGroup
@@ -22,21 +15,19 @@ const ToggleTempForm = ({selectedValueCelsuis,  selectedValueFahrenheit, handleC
         m={5}
       >
         <FormControlLabel
-          value='start'
+          value='celsius'
           control={<Radio color='primary' />}
           label='Celcius'
           labelPlacement='start'
           className='radio'
-        //   checked={selectedValueCelsuis}
-        //   onChange={handleChange}
+          onChange={handleChange}
         />
         <FormControlLabel
-          value='end'
+          value='fahrenheit'
           control={<Radio color='primary' />}
           label='fahrenheit'
           className='radio'
-        //   checked={selectedValueFahrenheit}
-        //   onChange={handleChange}
+          onChange={handleChange}
         />
       </RadioGroup>
     </FormControl>
