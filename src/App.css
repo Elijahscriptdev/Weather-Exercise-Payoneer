@@ -1,3 +1,29 @@
 .App {
   text-align: center;
 }
+
+li {
+  list-style-type: none;
+}
+
+li a {
+  display: none;
+}
+
+.paginationBttns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.previousBttn,
+.nextBttn {
+  display: flex;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.previousBttn:hover,
+.nextBttn:hover {
+  color: darkgoldenrod;
+}
