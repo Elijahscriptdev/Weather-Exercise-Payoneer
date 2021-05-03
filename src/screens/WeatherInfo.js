@@ -10,6 +10,7 @@ import ToggleTempForm from "../components/ToggleTempForm";
 
 const WeatherInfo = () => {
   const weatherInfo = useSelector((state) => state.weatherInfo);
+  const [temperatureType, setTemperatureType] = useState('celsius');
   const { data, loading } = weatherInfo;
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const WeatherInfo = () => {
   const weatherInfoList = data.list;
   const [pageNumber, setPageNumber] = useState(0);
 
-  const weatherInfoPerPage = 8;
+  const weatherInfoPerPage = 3;
   const pagesVisited = pageNumber * weatherInfoPerPage;
 
   const displayWeatherInfo =
@@ -29,7 +30,7 @@ const WeatherInfo = () => {
       .slice(pagesVisited, pagesVisited + weatherInfoPerPage)
       .map((info) => (
         <Grid item key={info.dt} xs={12} sm={6} md={4} lg={4}>
-          <Cards info={info} />
+          <Cards temperatureType={temperatureType} info={info} />
         </Grid>
       ));
 
@@ -41,14 +42,13 @@ const WeatherInfo = () => {
     setPageNumber(selected);
   };
 
-  // const [temp, setSTemp] = useState();
-
   const handleChange = (event) => {
     if (event.target.value === "celsius") {
-      // setSTemp((C * 9/5) + 32)
       console.log(event.target.value);
+      setTemperatureType(event.target.value);
     } else if (event.target.value === "fahrenheit") {
       console.log(event.target.value);
+      setTemperatureType(event.target.value);
     }
   };
 
