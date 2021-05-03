@@ -5,8 +5,6 @@ import Cards from "../components/Cards";
 import { Grid } from "@material-ui/core";
 import Loading from "./Loading";
 import ReactPaginate from "react-paginate";
-// import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-// import ArrowLeftAltIcon from '@material-ui/icons/ArrowLeftAlt';
 import { ImArrowRight, ImArrowLeft } from "react-icons/im";
 
 const WeatherInfo = () => {

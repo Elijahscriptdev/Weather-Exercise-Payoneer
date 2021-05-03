@@ -25,5 +25,9 @@ li a {
 
 .previousBttn:hover,
 .nextBttn:hover {
-  color: darkgoldenrod;
+  color: rgb(238, 209, 136);
+}
+
+.paginationDisabled {
+  display: none;
 }
