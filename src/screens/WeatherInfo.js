@@ -7,22 +7,45 @@ import Loading from "./Loading";
 import ReactPaginate from "react-paginate";
 import { ImArrowRight, ImArrowLeft } from "react-icons/im";
 import ToggleTempForm from "../components/ToggleTempForm";
+import { getDayOfYear } from "date-fns";
 
 const WeatherInfo = () => {
   const weatherInfo = useSelector((state) => state.weatherInfo);
-  const [temperatureType, setTemperatureType] = useState('celsius');
+  const [countedDayTemperatures, setCountedDayTemperatures] = useState({})
+  const [temperatureType, setTemperatureType] = useState("celsius");
   const { data, loading } = weatherInfo;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getWeatherInfo());
-  }, []);
-
-  const weatherInfoList = data.list;
+  const weatherInfoList = data.list || [];
   const [pageNumber, setPageNumber] = useState(0);
 
   const weatherInfoPerPage = 3;
   const pagesVisited = pageNumber * weatherInfoPerPage;
+
+  useEffect(() => {
+    const weatherArray = weatherInfoList.reduce((accumulator, currentValue) => {
+      console.log(getDayOfYear(new Date(currentValue.dt_txt)))
+      if (!accumulator[getDayOfYear(new Date(currentValue.dt_txt))]) {
+        accumulator[getDayOfYear(new Date(currentValue.dt_txt))] = {
+          value: 0,
+          count: 0
+        }
+      }
+      accumulator[getDayOfYear(new Date(currentValue.dt_txt))].value += currentValue.main.temp;
+      accumulator[getDayOfYear(new Date(currentValue.dt_txt))].count += 1;
+      return accumulator
+    }, {});
+
+    console.log(weatherArray)
+
+    // Object.values(weatherArray).reduce()
+
+    // setCountedDayTemperatures(weatherArray)
+
+   }, [weatherInfoList]);
+
+  useEffect(() => {
+    dispatch(getWeatherInfo());
+  }, []);
 
   const displayWeatherInfo =
     weatherInfoList &&
@@ -44,10 +67,8 @@ const WeatherInfo = () => {
 
   const handleChange = (event) => {
     if (event.target.value === "celsius") {
-      console.log(event.target.value);
       setTemperatureType(event.target.value);
     } else if (event.target.value === "fahrenheit") {
-      console.log(event.target.value);
       setTemperatureType(event.target.value);
     }
   };

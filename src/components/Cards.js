@@ -27,25 +27,27 @@ const Cards = ({ temperatureType, info }) => {
   const convertToCelsius = useCallback((temperature) => {
     return `${Math.floor(temperature + -273.15)} °C`;
   }, []);
-  
+
   const convertToFarenheit = useCallback((temperature) => {
     return `${Math.floor(((temperature - 273.15) * 9) / 5 + 32)} °F`;
   }, []);
 
-  const getTemperature = useCallback((temperature) => {
-    switch(temperatureType) {
-      case 'celsius': {
-        return convertToCelsius(temperature)
+  const getTemperature = useCallback(
+    (temperature) => {
+      switch (temperatureType) {
+        case "celsius": {
+          return convertToCelsius(temperature);
+        }
+        case "fahrenheit": {
+          return convertToFarenheit(temperature);
+        }
+        default: {
+          break;
+        }
       }
-      case 'fahrenheit': {
-        console.log('faren')
-        return convertToFarenheit(temperature)
-      }
-      default: {
-        break;
-      }
-    }
-  }, [temperatureType]);
+    },
+    [temperatureType]
+  );
 
   return (
     <Card className={classes.root} variant='outlined'>
