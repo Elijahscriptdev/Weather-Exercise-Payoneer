@@ -11,7 +11,7 @@ import { getDayOfYear, startOfDay, format } from "date-fns";
 
 const WeatherInfo = () => {
   const weatherInfo = useSelector((state) => state.weatherInfo);
-  const loading = false;
+  const { data, loading } = weatherInfo;
   const [countedDayTemperatures, setCountedDayTemperatures] = useState([]);
   const [temperatureType, setTemperatureType] = useState("celsius");
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const WeatherInfo = () => {
     const computedWeatherData =
       weatherInfoList &&
       weatherInfoList.reduce((accumulator, currentValue) => {
-        console.log(getDayOfYear(new Date(currentValue.dt_txt)));
+        // console.log(getDayOfYear(new Date(currentValue.dt_txt)));
         if (!accumulator[getDayOfYear(new Date(currentValue.dt_txt))]) {
           accumulator[getDayOfYear(new Date(currentValue.dt_txt))] = {
             value: 0,
@@ -54,8 +54,7 @@ const WeatherInfo = () => {
   }, [weatherInfoList]);
 
   useEffect(() => {
-    const { data, loading } = weatherInfo;
-    !loading && setWeatherInfoList(data.list);
+    setWeatherInfoList(data.list);
   }, [weatherInfo]);
 
   useEffect(() => {
