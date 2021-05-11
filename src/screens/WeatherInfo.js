@@ -7,58 +7,71 @@ import Loading from "./Loading";
 import ReactPaginate from "react-paginate";
 import { ImArrowRight, ImArrowLeft } from "react-icons/im";
 import ToggleTempForm from "../components/ToggleTempForm";
-import { getDayOfYear } from "date-fns";
+import { getDayOfYear, startOfDay, format } from "date-fns";
 
 const WeatherInfo = () => {
   const weatherInfo = useSelector((state) => state.weatherInfo);
-  const [countedDayTemperatures, setCountedDayTemperatures] = useState({})
+  const loading = false;
+  const [countedDayTemperatures, setCountedDayTemperatures] = useState([]);
   const [temperatureType, setTemperatureType] = useState("celsius");
-  const { data, loading } = weatherInfo;
   const dispatch = useDispatch();
-  const weatherInfoList = data.list || [];
+  const [weatherInfoList, setWeatherInfoList] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   const weatherInfoPerPage = 3;
   const pagesVisited = pageNumber * weatherInfoPerPage;
 
   useEffect(() => {
-    const weatherArray = weatherInfoList.reduce((accumulator, currentValue) => {
-      console.log(getDayOfYear(new Date(currentValue.dt_txt)))
-      if (!accumulator[getDayOfYear(new Date(currentValue.dt_txt))]) {
-        accumulator[getDayOfYear(new Date(currentValue.dt_txt))] = {
-          value: 0,
-          count: 0
+    const computedWeatherData =
+      weatherInfoList &&
+      weatherInfoList.reduce((accumulator, currentValue) => {
+        console.log(getDayOfYear(new Date(currentValue.dt_txt)));
+        if (!accumulator[getDayOfYear(new Date(currentValue.dt_txt))]) {
+          accumulator[getDayOfYear(new Date(currentValue.dt_txt))] = {
+            value: 0,
+            count: 0,
+            date: startOfDay(new Date(currentValue.dt_txt)),
+          };
         }
-      }
-      accumulator[getDayOfYear(new Date(currentValue.dt_txt))].value += currentValue.main.temp;
-      accumulator[getDayOfYear(new Date(currentValue.dt_txt))].count += 1;
-      return accumulator
-    }, {});
+        accumulator[getDayOfYear(new Date(currentValue.dt_txt))].value +=
+          currentValue.main.temp;
+        accumulator[getDayOfYear(new Date(currentValue.dt_txt))].count += 1;
+        return accumulator;
+      }, {});
 
-    console.log(weatherArray)
+    const averageArray = [];
+    for (let day in computedWeatherData) {
+      averageArray.push({
+        average: Number(
+          (
+            computedWeatherData[day].value / computedWeatherData[day].count
+          ).toFixed(2)
+        ),
+        date: format(computedWeatherData[day].date, "dd 'of' MMMM yyyy"),
+      });
+    }
+    setCountedDayTemperatures(averageArray);
+  }, [weatherInfoList]);
 
-    // Object.values(weatherArray).reduce()
-
-    // setCountedDayTemperatures(weatherArray)
-
-   }, [weatherInfoList]);
+  useEffect(() => {
+    const { data, loading } = weatherInfo;
+    !loading && setWeatherInfoList(data.list);
+  }, [weatherInfo]);
 
   useEffect(() => {
     dispatch(getWeatherInfo());
   }, []);
 
-  const displayWeatherInfo =
-    weatherInfoList &&
-    weatherInfoList
-      .slice(pagesVisited, pagesVisited + weatherInfoPerPage)
-      .map((info) => (
-        <Grid item key={info.dt} xs={12} sm={6} md={4} lg={4}>
-          <Cards temperatureType={temperatureType} info={info} />
-        </Grid>
-      ));
+  const displayWeatherInfo = countedDayTemperatures
+    .slice(pagesVisited, pagesVisited + weatherInfoPerPage)
+    .map((info) => (
+      <Grid item key={info.average} xs={12} sm={6} md={4} lg={4}>
+        <Cards temperatureType={temperatureType} info={info} />
+      </Grid>
+    ));
 
   const pageCount = Math.ceil(
-    weatherInfoList && weatherInfoList.length / weatherInfoPerPage
+    countedDayTemperatures.length / weatherInfoPerPage
   );
 
   const changePage = ({ selected }) => {

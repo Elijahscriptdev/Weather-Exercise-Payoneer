@@ -28,7 +28,7 @@ const Cards = ({ temperatureType, info }) => {
     return `${Math.floor(temperature + -273.15)} °C`;
   }, []);
 
-  const convertToFarenheit = useCallback((temperature) => {
+  const convertToFahrenheit = useCallback((temperature) => {
     return `${Math.floor(((temperature - 273.15) * 9) / 5 + 32)} °F`;
   }, []);
 
@@ -39,14 +39,14 @@ const Cards = ({ temperatureType, info }) => {
           return convertToCelsius(temperature);
         }
         case "fahrenheit": {
-          return convertToFarenheit(temperature);
+          return convertToFahrenheit(temperature);
         }
         default: {
           break;
         }
       }
     },
-    [temperatureType]
+    [temperatureType, convertToFahrenheit, convertToCelsius]
   );
 
   return (
@@ -57,18 +57,18 @@ const Cards = ({ temperatureType, info }) => {
           color='textSecondary'
           gutterBottom
         >
-          {info.dt_txt}
+          {info.date}
         </Typography>
         <Typography variant='h5' component='h2'>
-          Temp: {getTemperature(info.main.temp)}
+          Temp: {getTemperature(info.average)}
         </Typography>
-        <Typography className={classes.pos} color='textSecondary'>
+        {/* <Typography className={classes.pos} color='textSecondary'>
           Weather: {info.weather[0].main}
-        </Typography>
-        <Typography variant='body2' component='p'>
+        </Typography> */}
+        {/* <Typography variant='body2' component='p'>
           Weather Description: {info.weather[0].description}
           <br />
-        </Typography>
+        </Typography> */}
       </CardContent>
     </Card>
   );
