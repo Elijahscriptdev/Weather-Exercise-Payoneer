@@ -22,9 +22,7 @@ Weather Cards
 Below the arrows, a maximum of 3 weather cards are visible and they are laid out horizontally. Each card displays the weather  forecast for one day and must at least show the average temperature and date for that day.
 
 
-
 ## Built With
-
 
 - React
 - React Hooks
@@ -34,11 +32,6 @@ Below the arrows, a maximum of 3 weather cards are visible and they are laid out
 - ES6 JavaScript.
 
 ## Deployment to Netlify
-[Live link](https://weather-app-react-test.netlify.app/)
-
-
-## Deployment to heroku
-
 [Live link](https://weather-app-react-test.netlify.app/)
 
 ## Images
