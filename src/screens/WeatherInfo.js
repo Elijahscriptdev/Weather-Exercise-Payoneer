@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherInfo } from "../redux/actions/weatherInfo";
 import Cards from "../components/Cards";
+import BarChart from "../components/BarChart";
 import { Grid } from "@material-ui/core";
 import Loading from "./Loading";
 import ReactPaginate from "react-paginate";
@@ -17,6 +18,7 @@ const WeatherInfo = () => {
   const dispatch = useDispatch();
   const [weatherInfoList, setWeatherInfoList] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [newInfo, setNewInfo] = useState();
 
   const weatherInfoPerPage = 3;
   const pagesVisited = pageNumber * weatherInfoPerPage;
@@ -25,7 +27,6 @@ const WeatherInfo = () => {
     const computedWeatherData =
       weatherInfoList &&
       weatherInfoList.reduce((accumulator, currentValue) => {
-        // console.log(getDayOfYear(new Date(currentValue.dt_txt)));
         if (!accumulator[getDayOfYear(new Date(currentValue.dt_txt))]) {
           accumulator[getDayOfYear(new Date(currentValue.dt_txt))] = {
             value: 0,
@@ -63,9 +64,13 @@ const WeatherInfo = () => {
 
   const displayWeatherInfo = countedDayTemperatures
     .slice(pagesVisited, pagesVisited + weatherInfoPerPage)
-    .map((info) => (
-      <Grid item key={info.average} xs={12} sm={6} md={4} lg={4}>
-        <Cards temperatureType={temperatureType} info={info} />
+    .map((info, id) => (
+      <Grid item key={id} xs={12} sm={6} md={4} lg={4}>
+        <Cards
+          temperatureType={temperatureType}
+          info={info}
+          setNewInfo={setNewInfo}
+        />
       </Grid>
     ));
 
@@ -109,6 +114,12 @@ const WeatherInfo = () => {
           displayWeatherInfo
         )}
       </Grid>
+
+      <BarChart
+        temperatureType={temperatureType}
+        weatherInfoList={weatherInfoList}
+        newInfo={newInfo}
+      />
     </div>
   );
 };

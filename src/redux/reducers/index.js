@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import weatherInfo from './weatherInfo'
+import weatherInfo from "./weatherInfo";
 
 export default combineReducers({
-  weatherInfo
+  weatherInfo,
 });

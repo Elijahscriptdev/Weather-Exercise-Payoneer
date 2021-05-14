@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    cursor: "pointer",
   },
   bullet: {
     display: "inline-block",
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Cards = ({ temperatureType, info }) => {
+const Cards = ({ temperatureType, info, setNewInfo }) => {
   const classes = useStyles();
 
   const convertToCelsius = useCallback((temperature) => {
@@ -49,8 +50,13 @@ const Cards = ({ temperatureType, info }) => {
     [temperatureType, convertToFahrenheit, convertToCelsius]
   );
 
+  const HandleClick = (e) => {
+    e.preventDefault();
+    setNewInfo(info.date);
+  };
+
   return (
-    <Card className={classes.root} variant='outlined'>
+    <Card className={classes.root} variant='outlined' onClick={HandleClick}>
       <CardContent>
         <Typography
           className={classes.title}
@@ -62,13 +68,6 @@ const Cards = ({ temperatureType, info }) => {
         <Typography variant='h5' component='h2'>
           Temp: {getTemperature(info.average)}
         </Typography>
-        {/* <Typography className={classes.pos} color='textSecondary'>
-          Weather: {info.weather[0].main}
-        </Typography> */}
-        {/* <Typography variant='body2' component='p'>
-          Weather Description: {info.weather[0].description}
-          <br />
-        </Typography> */}
       </CardContent>
     </Card>
   );

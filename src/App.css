@@ -26,11 +26,12 @@ li a {
   display: flex;
   font-size: 50px;
   cursor: pointer;
+  color: rgba(75, 192, 192, 0.6);
 }
 
 .previousBttn:hover,
 .nextBttn:hover {
-  color: rgb(238, 209, 136);
+  color: rgba(27, 141, 141, 0.6);
 }
 
 .paginationDisabled {
