@@ -8,11 +8,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     cursor: "pointer",
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+    borderRadius: 20
   },
   title: {
     fontSize: 20,
