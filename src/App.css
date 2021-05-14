@@ -46,3 +46,8 @@ li a {
 .center {
   text-align: center;
 }
+
+.loading {
+  margin: 200px 0;
+  text-align: center;
+}

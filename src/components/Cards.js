@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Cards = ({ temperatureType, info, setNewInfo }) => {
+const Cards = ({ temperatureType, info, setCardDate }) => {
   const classes = useStyles();
 
   const convertToCelsius = useCallback((temperature) => {
@@ -53,7 +53,7 @@ const Cards = ({ temperatureType, info, setNewInfo }) => {
 
   const HandleClick = (e) => {
     e.preventDefault();
-    setNewInfo(info.date);
+    setCardDate(info.date);
   };
 
   return (

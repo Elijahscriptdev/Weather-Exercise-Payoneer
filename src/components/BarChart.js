@@ -14,64 +14,64 @@ const useStyles = makeStyles({
   },
 });
 
-const BarChart = ({ temperatureType, weatherInfoList, newInfo }) => {
+const BarChart = ({ temperatureType, weatherInfoList, cardDate }) => {
   const classes = useStyles();
   const [chartData, setChartData] = useState({});
 
   const filterDates = () => {
-    const testData = weatherInfoList.filter((weatherDates) => {
-      let pre = startOfDay(new Date(weatherDates.dt_txt));
-      let cious = format(pre, "dd 'of' MMMM yyyy");
-      return cious === newInfo;
+    const filteredDates = weatherInfoList && weatherInfoList.filter((weatherDates) => {
+      let convertDate = startOfDay(new Date(weatherDates.dt_txt));
+      let FormatDate = format(convertDate, "dd 'of' MMMM yyyy");
+      return FormatDate === cardDate;
     });
-    const testDataTwo = mapTemps(testData);
-    formatMapTemps(testDataTwo);
+    const filteredTemp = arrayOfAllTempForADay(filteredDates);
+    toggleCelcuisFahrenheit(filteredTemp);
   };
 
-  const mapTemps = (testData) => {
-    const testDatathree = testData.map((temps) => {
+  const arrayOfAllTempForADay = (filteredDates) => {
+    const mappedTemp = filteredDates && filteredDates.map((temps) => {
       return temps.main.temp;
     });
-    return testDatathree;
+    return mappedTemp;
   };
 
   useEffect(() => {
     filterDates();
-  }, [newInfo, temperatureType]);
+  }, [cardDate, temperatureType]);
 
-  const formatMapTemps = (mapTemps) => {
-    let celciusData = [];
+  const toggleCelcuisFahrenheit = (arrayOfAllTempForADay) => {
+    let converToCelcuisFahrenheitData = [];
     if (temperatureType === "celsius") {
-      mapTemps &&
-        mapTemps.map((temp) => {
-          celciusData.push(Math.floor(temp + -273.15));
+      arrayOfAllTempForADay &&
+        arrayOfAllTempForADay.map((temp) => {
+          converToCelcuisFahrenheitData.push(Math.floor(temp + -273.15));
         });
       setChartData({
-        labels: celciusData,
+        labels: converToCelcuisFahrenheitData,
         datasets: [
           {
-            label: newInfo
-              ? `Temperature Level in celsius - ${newInfo}`
+            label: cardDate
+              ? `Temperature Level in celsius - ${cardDate}`
               : "Temperature Level in celsius",
-            data: celciusData,
+            data: converToCelcuisFahrenheitData,
             backgroundColor: ["rgba(75, 192, 192, 0.6)"],
             borderWidth: 4,
           },
         ],
       });
     } else {
-      mapTemps &&
-        mapTemps.map((temp) => {
-          celciusData.push(Math.floor(((temp - 273.15) * 9) / 5 + 32));
+      arrayOfAllTempForADay &&
+        arrayOfAllTempForADay.map((temp) => {
+          converToCelcuisFahrenheitData.push(Math.floor(((temp - 273.15) * 9) / 5 + 32));
         });
       setChartData({
-        labels: celciusData,
+        labels: converToCelcuisFahrenheitData,
         datasets: [
           {
-            label: newInfo
-              ? `Temperature Level in fahrenheit - ${newInfo}`
+            label: cardDate
+              ? `Temperature Level in fahrenheit - ${cardDate}`
               : "Temperature Level in fahrenheit",
-            data: celciusData,
+            data: converToCelcuisFahrenheitData,
             backgroundColor: ["rgba(75, 192, 192, 0.6)"],
             borderWidth: 4,
           },

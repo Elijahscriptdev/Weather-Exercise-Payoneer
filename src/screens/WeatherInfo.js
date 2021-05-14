@@ -28,7 +28,7 @@ const WeatherInfo = () => {
   const dispatch = useDispatch();
   const [weatherInfoList, setWeatherInfoList] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const [newInfo, setNewInfo] = useState();
+  const [cardDate, setCardDate] = useState();
 
   const weatherInfoPerPage = 3;
   const pagesVisited = pageNumber * weatherInfoPerPage;
@@ -79,7 +79,7 @@ const WeatherInfo = () => {
         <Cards
           temperatureType={temperatureType}
           info={info}
-          setNewInfo={setNewInfo}
+          setCardDate={setCardDate}
         />
       </Grid>
     ));
@@ -102,40 +102,41 @@ const WeatherInfo = () => {
 
   return (
     <div>
-      <div className='center'>
-        <Typography variant='h1' component='h1' className={classes.temp}>
-          Weather App
-        </Typography>
-        <ToggleTempForm handleChange={handleChange} />
-      </div>
-      <ReactPaginate
-        previousLabel={<ImArrowLeft />}
-        nextLabel={<ImArrowRight />}
-        pageCount={pageCount}
-        onPageChange={changePage}
-        containerClassName={"paginationBttns"}
-        previousLinkClassName={"previousBttn"}
-        nextLinkClassName={"nextBttn"}
-        disabledClassName={"paginationDisabled"}
-        activeClassName={"paginationActive"}
-      />
-      <Grid container justify='center' spacing={5}>
-        {loading ? (
-          <Loading />
-        ) : !loading && !displayWeatherInfo ? (
-          <h1>Service Unavailable</h1>
-        ) : (
-          displayWeatherInfo
-        )}
-      </Grid>
-
-      <Container maxWidth='md'>
-        <BarChart
-          temperatureType={temperatureType}
-          weatherInfoList={weatherInfoList}
-          newInfo={newInfo}
-        />
-      </Container>
+      {loading ? (
+        <Loading />
+      ) : (
+        !loading && (
+          <>
+            <div className='center'>
+              <Typography variant='h1' component='h1' className={classes.temp}>
+                Weather App
+              </Typography>
+              <ToggleTempForm handleChange={handleChange} />
+            </div>
+            <ReactPaginate
+              previousLabel={<ImArrowLeft />}
+              nextLabel={<ImArrowRight />}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+            <Grid container justify='center' spacing={5}>
+              {displayWeatherInfo}
+            </Grid>
+            <Container maxWidth='md'>
+              <BarChart
+                temperatureType={temperatureType}
+                weatherInfoList={weatherInfoList}
+                cardDate={cardDate}
+              />
+            </Container>
+          </>
+        )
+      )}
     </div>
   );
 };
