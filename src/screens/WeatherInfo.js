@@ -3,14 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWeatherInfo } from "../redux/actions/weatherInfo";
 import Cards from "../components/Cards";
 import BarChart from "../components/BarChart";
-import { Grid } from "@material-ui/core";
+import { Grid, Container, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Loading from "./Loading";
 import ReactPaginate from "react-paginate";
 import { ImArrowRight, ImArrowLeft } from "react-icons/im";
 import ToggleTempForm from "../components/ToggleTempForm";
 import { getDayOfYear, startOfDay, format } from "date-fns";
 
+const useStyles = makeStyles({
+  temp: {
+    fontSize: 40,
+    color: "rgba(27, 141, 141, 0.6)",
+    fontWeight: "bolder",
+  },
+});
+
 const WeatherInfo = () => {
+  const classes = useStyles();
   const weatherInfo = useSelector((state) => state.weatherInfo);
   const { data, loading } = weatherInfo;
   const [countedDayTemperatures, setCountedDayTemperatures] = useState([]);
@@ -92,8 +102,12 @@ const WeatherInfo = () => {
 
   return (
     <div>
-      <h1>WeatherInfo</h1>
-      <ToggleTempForm handleChange={handleChange} />
+      <div className='center'>
+        <Typography variant='h1' component='h1' className={classes.temp}>
+          Weather App
+        </Typography>
+        <ToggleTempForm handleChange={handleChange} />
+      </div>
       <ReactPaginate
         previousLabel={<ImArrowLeft />}
         nextLabel={<ImArrowRight />}
@@ -115,11 +129,13 @@ const WeatherInfo = () => {
         )}
       </Grid>
 
-      <BarChart
-        temperatureType={temperatureType}
-        weatherInfoList={weatherInfoList}
-        newInfo={newInfo}
-      />
+      <Container maxWidth='md'>
+        <BarChart
+          temperatureType={temperatureType}
+          weatherInfoList={weatherInfoList}
+          newInfo={newInfo}
+        />
+      </Container>
     </div>
   );
 };

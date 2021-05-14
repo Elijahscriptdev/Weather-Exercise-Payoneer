@@ -12,13 +12,14 @@ li a {
 
 .radio {
   align-self: center;
-  margin: 10px 50px !important;
+  margin: 10px 10px !important;
 }
 
 .paginationBttns {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-left: 0 !important;
 }
 
 .previousBttn,
@@ -36,4 +37,12 @@ li a {
 
 .paginationDisabled {
   display: none;
+}
+
+.MuiRadio-colorPrimary.Mui-checked {
+  color: rgba(27, 141, 141, 0.6) !important;
+}
+
+.center {
+  text-align: center;
 }

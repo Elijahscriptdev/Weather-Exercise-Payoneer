@@ -15,7 +15,12 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14,
+    fontSize: 20,
+  },
+  temp: {
+    fontSize: 40,
+    color: "rgba(27, 141, 141, 0.6)",
+    fontWeight: "bolder",
   },
   pos: {
     marginBottom: 12,
@@ -65,7 +70,7 @@ const Cards = ({ temperatureType, info, setNewInfo }) => {
         >
           {info.date}
         </Typography>
-        <Typography variant='h5' component='h2'>
+        <Typography variant='h5' component='h2' className={classes.temp}>
           Temp: {getTemperature(info.average)}
         </Typography>
       </CardContent>
