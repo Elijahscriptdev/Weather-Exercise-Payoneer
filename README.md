@@ -25,43 +25,70 @@ Below the arrows, a maximum of 3 weather cards are visible and they are laid out
 
 ## Built With
 
+
+- React
 - React Hooks
+- Redux
+- Netlify (For deployment)
+- Material-Ui
+- ES6 JavaScript.
 
 ## Deployment to Netlify
-[Live link](https://goofy-babbage-4ba74e.netlify.app/)
+[Live link](https://weather-app-react-test.netlify.app/)
 
+
+## Deployment to heroku
+
+[Live link](https://weather-app-react-test.netlify.app/)
+
+## Images
+
+![homepage](https://res.cloudinary.com/elijjaaahhhh/image/upload/v1620972124/FireShot_Capture_272_-_Weather_Exercise_-_React-JS_-_localhost_n9nyjl.png)
+
+## Prerequisites
+
+- React
+
+## Functionalities
+
+- View clothings
+- Add clothings to cart
+- Delete items fom cart
+- Delete cart
+- Goggle authentication signin
+- Email signin
 
 ## Setup
 
 ```sh
-$ git clone https://github.com/Elijahscriptdev/Weather-Exercise-Payoneer.git
+git clone https://github.com/Elijahscriptdev/Weather-Exercise-Payoneer.git
+```
 
-### cd into the project
+Navigate to the extracted folder
 
-### `yarn start`
+```sh
+cd Weather-Exercise-Payoneer
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install dependencies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```sh
+yarn
+```
 
-### `yarn build`
+Start server with:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+    yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Open `http://localhost:3000/` in your browser.
 
 ## Author
 
 👤 **Elijah Obominuru**
 
 [Github](https://github.com/Elijahscriptdev) | [Twitter](https://twitter.com/ElijahObominuru) | [LinkedIn](https://www.linkedin.com/in/elijah-obominuru-0b730b143/)
-
 
 ## 🤝 Contributing
 
@@ -70,7 +97,6 @@ Contributions, issues and feature requests are welcome!
 ## Show your support
 
 Give a ⭐️ if you like this project!
-
 
 ## 📝 License
 
