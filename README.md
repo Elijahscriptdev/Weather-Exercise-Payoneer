@@ -44,12 +44,9 @@ Below the arrows, a maximum of 3 weather cards are visible and they are laid out
 
 ## Functionalities
 
-- View clothings
-- Add clothings to cart
-- Delete items fom cart
-- Delete cart
-- Goggle authentication signin
-- Email signin
+- Use the pagination arrow to see more weather information for other days
+- Switch between Celcuis and Fahrenheit using the radio buttons
+- Click on the cards to get barchat representation
 
 ## Setup
 
